@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vinicius &amp; Samira</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,300&family=Karla:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f3f4; --ink:#22302c; --green:#2f4a42; --rose:#b0606d; --line:#d9cfd2; --card:#ffffff;
+  --serif:'Fraunces',Georgia,serif; --sans:'Karla',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.65}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--rose);outline-offset:3px}
+
+/* Menu */
+header{position:sticky;top:0;z-index:10;background:var(--green);color:#f6f3f4}
+nav{max-width:1000px;margin:0 auto;padding:.9rem 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.mono{font-family:var(--serif);font-style:italic;font-weight:300;font-size:1.5rem;text-decoration:none}
+nav ul{list-style:none;padding:0;display:flex;gap:1.6rem;flex-wrap:wrap}
+nav ul a{text-decoration:none;padding:.3rem 0;border-bottom:2px solid transparent;font-weight:600;font-size:.95rem}
+nav ul a:hover,nav ul a.ativo{border-bottom-color:#e5a9b2}
+
+main{max-width:1000px;margin:0 auto;padding:0 1.5rem}
+section{display:none;padding:4rem 0 5rem}
+section.ativo{display:block}
+h1,h2{font-family:var(--serif);font-weight:300;line-height:1.05}
+h2{font-size:clamp(2rem,5vw,3rem);color:var(--green);margin-bottom:.5rem}
+.sub{max-width:34rem;margin-bottom:2.5rem;color:#4c5b56}
+
+/* Home */
+.hero{padding:2rem 0 3.5rem;border-bottom:1px solid var(--line);margin-bottom:3rem}
+h1{font-size:clamp(3.2rem,12vw,7.5rem);color:var(--green);letter-spacing:-.02em}
+h1 em{display:block;font-style:italic;color:var(--rose);font-size:.55em;margin:.1em 0 .05em .1em}
+.quando{margin-top:1.6rem;font-size:1.1rem}
+.btn{display:inline-block;margin-top:1.6rem;background:var(--rose);color:#fff;padding:.8rem 1.6rem;border:0;border-radius:999px;font:600 1rem var(--sans);text-decoration:none;cursor:pointer}
+.btn:hover{background:#984f5c}
+.btn:disabled{opacity:.6;cursor:wait}
+
+.linha{list-style:none;padding:0;border-left:2px solid var(--line);margin-left:.4rem}
+.linha li{position:relative;padding:0 0 2.2rem 1.8rem}
+.linha li::before{content:"";position:absolute;left:-.45rem;top:.55rem;width:.8rem;height:.8rem;border-radius:50%;background:var(--rose)}
+.linha h3{font-family:var(--serif);font-weight:500;font-size:1.35rem;color:var(--green)}
+.linha .ano{font-size:.9rem;color:var(--rose);font-weight:600}
+.linha p{max-width:36rem}
+
+/* Formulário */
+form{max-width:34rem;background:var(--card);padding:2rem;border:1px solid var(--line);border-radius:6px}
+label,legend{display:block;font-weight:600;margin-bottom:.35rem}
+input[type=text],textarea{width:100%;font:inherit;padding:.7rem .8rem;border:1px solid var(--line);border-radius:4px;background:#fff;color:var(--ink)}
+textarea{min-height:7rem;resize:vertical}
+.campo{margin-bottom:1.4rem}
+fieldset{border:0;padding:0;margin-bottom:1.4rem}
+.opcoes{display:flex;gap:.8rem;flex-wrap:wrap}
+.opcoes label{flex:1;min-width:10rem;margin:0;font-weight:400;border:1px solid var(--line);border-radius:4px;padding:.7rem .9rem;cursor:pointer}
+.opcoes input{accent-color:var(--rose);margin-right:.5rem}
+.opcoes label:has(input:checked){border-color:var(--rose);background:#f8eced}
+.aviso{margin-top:1rem;padding:.8rem 1rem;border-radius:4px;display:none}
+.aviso.ok{display:block;background:#e6efe9;color:var(--green)}
+.aviso.erro{display:block;background:#f8eced;color:#8a3b47}
+
+/* Presentes */
+.grade{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1.2rem}
+.presente{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:1.4rem;display:flex;flex-direction:column;gap:.4rem}
+.presente h3{font-family:var(--serif);font-weight:500;font-size:1.2rem;color:var(--green)}
+.presente p{font-size:.95rem;color:#4c5b56;flex:1}
+.presente a{font-weight:600;color:var(--rose)}
+.pix{margin-top:2.5rem;max-width:34rem;padding:1.4rem;border-left:3px solid var(--rose);background:#fff}
+
+footer{text-align:center;padding:2rem 1rem;color:#6b7a75;font-size:.9rem;border-top:1px solid var(--line)}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header>
+  <nav aria-label="Menu principal">
+    <a class="mono" href="#historia">V &amp; S</a>
+    <ul>
+      <li><a href="#historia" data-sec="historia">Nossa História</a></li>
+      <li><a href="#presenca" data-sec="presenca">Confirmação de Presença</a></li>
+      <li><a href="#presentes" data-sec="presentes">Lista de Presentes</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <!-- NOSSA HISTÓRIA (home) -->
+  <section id="historia">
+    <div class="hero">
+      <h1>Vinicius <em>e</em> Samira</h1>
+      <p class="quando"><!-- EDITE: data e local -->00 de mês de 0000 · Nome do local, Cidade</p>
+      <a class="btn" href="#presenca">Confirmar presença</a>
+    </div>
+
+    <h2>Nossa História</h2>
+    <p class="sub">Um pouco do caminho que nos trouxe até aqui.</p>
+    <!-- EDITE: troque os textos e anos pela história de vocês -->
+    <ul class="linha">
+      <li><span class="ano">Ano</span><h3>Como nos conhecemos</h3><p>Conte aqui onde e como o Vinicius e a Samira se encontraram pela primeira vez.</p></li>
+      <li><span class="ano">Ano</span><h3>O primeiro encontro</h3><p>Escreva sobre o primeiro programa juntos e o que ficou na memória.</p></li>
+      <li><span class="ano">Ano</span><h3>Morando juntos</h3><p>Um marco da vida a dois: a casa nova, uma viagem, um projeto.</p></li>
+      <li><span class="ano">Ano</span><h3>O pedido</h3><p>Como foi o pedido de casamento e o sim mais esperado.</p></li>
+    </ul>
+  </section>
+
+  <!-- CONFIRMAÇÃO DE PRESENÇA -->
+  <section id="presenca">
+    <h2>Confirmação de Presença</h2>
+    <p class="sub">Conte pra gente se você vem comemorar com a gente. Deixe também um recado para os noivos.</p>
+
+    <form id="form-rsvp" novalidate>
+      <div class="campo">
+        <label for="nome">Seu nome completo</label>
+        <input type="text" id="nome" name="nome" autocomplete="name" required>
+      </div>
+      <fieldset>
+        <legend>Você vai ao casamento?</legend>
+        <div class="opcoes">
+          <label><input type="radio" name="presenca" value="Vou" required>Vou, com certeza!</label>
+          <label><input type="radio" name="presenca" value="Não vou">Não poderei ir</label>
+        </div>
+      </fieldset>
+      <div class="campo">
+        <label for="mensagem">Mensagem para os noivos</label>
+        <textarea id="mensagem" name="mensagem"></textarea>
+      </div>
+      <!-- Campo oculto contra robôs: pessoas não preenchem -->
+      <input type="text" name="site" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+      <button class="btn" type="submit" id="enviar">Enviar confirmação</button>
+      <div id="aviso" class="aviso" role="status"></div>
+    </form>
+  </section>
+
+  <!-- LISTA DE PRESENTES -->
+  <section id="presentes">
+    <h2>Lista de Presentes</h2>
+    <p class="sub">Sua presença é o nosso maior presente. Se quiser nos presentear, estas são algumas ideias.</p>
+    <!-- EDITE: troque nomes, descrições e links -->
+    <div class="grade">
+      <article class="presente"><h3>Item 1</h3><p>Descrição curta do presente.</p><a href="#" target="_blank" rel="noopener">Ver na loja</a></article>
+      <article class="presente"><h3>Item 2</h3><p>Descrição curta do presente.</p><a href="#" target="_blank" rel="noopener">Ver na loja</a></article>
+      <article class="presente"><h3>Item 3</h3><p>Descrição curta do presente.</p><a href="#" target="_blank" rel="noopener">Ver na loja</a></article>
+      <article class="presente"><h3>Item 4</h3><p>Descrição curta do presente.</p><a href="#" target="_blank" rel="noopener">Ver na loja</a></article>
+    </div>
+    <div class="pix">
+      <h3>Prefere contribuir via Pix?</h3>
+      <p>Chave Pix: <strong>sua-chave-aqui</strong> (Nome do titular)</p>
+    </div>
+  </section>
+</main>
+
+<footer>Vinicius Köhler &amp; Samira Lino dos Santos</footer>
+
+<script>
+// ===== EDITE AQUI: cole a URL do Web App do Apps Script =====
+const URL_SCRIPT = "COLE_AQUI_A_URL_DO_APPS_SCRIPT";
+
+// Navegação entre seções (usa o #hash da URL)
+const secoes = ["historia","presenca","presentes"];
+function mostrar(){
+  const id = secoes.includes(location.hash.slice(1)) ? location.hash.slice(1) : "historia";
+  secoes.forEach(s => document.getElementById(s).classList.toggle("ativo", s === id));
+  document.querySelectorAll("nav ul a").forEach(a => a.classList.toggle("ativo", a.dataset.sec === id));
+  window.scrollTo(0,0);
+}
+window.addEventListener("hashchange", mostrar);
+mostrar();
+
+// Envio da confirmação
+const form = document.getElementById("form-rsvp");
+const aviso = document.getElementById("aviso");
+const botao = document.getElementById("enviar");
+
+function msg(tipo, texto){ aviso.className = "aviso " + tipo; aviso.textContent = texto; }
+
+form.addEventListener("submit", async e => {
+  e.preventDefault();
+  const d = new FormData(form);
+  const nome = (d.get("nome") || "").trim();
+  if (!nome) return msg("erro", "Digite seu nome para confirmar.");
+  if (!d.get("presenca")) return msg("erro", "Escolha se você vai ou não ao casamento.");
+  if (d.get("site")) return; // robô
+  if (URL_SCRIPT.startsWith("COLE_AQUI")) return msg("erro", "O site ainda não foi conectado à planilha.");
+
+  botao.disabled = true; msg("", ""); aviso.className = "aviso";
+  try {
+    // text/plain evita o bloqueio de CORS do Apps Script
+    await fetch(URL_SCRIPT, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({ nome, presenca: d.get("presenca"), mensagem: (d.get("mensagem") || "").trim() })
+    });
+    form.reset();
+    msg("ok", d.get("presenca") === "Vou"
+      ? "Presença confirmada! Mal podemos esperar para ver você."
+      : "Recebemos sua resposta. Sentiremos sua falta!");
+  } catch (err) {
+    msg("erro", "Não foi possível enviar agora. Verifique a conexão e tente de novo.");
+  } finally { botao.disabled = false; }
+});
+</script>
+</body>
+</html>
