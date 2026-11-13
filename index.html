@@ -64,6 +64,20 @@ fieldset{border:0;padding:0;margin-bottom:1.4rem}
 .aviso.ok{display:block;background:#e6efe9;color:var(--green)}
 .aviso.erro{display:block;background:#f8eced;color:#8a3b47}
 
+.dica{font-size:.92rem;color:#4c5b56;margin-bottom:.8rem}
+.tipo{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.7rem}
+.tipo label{margin:0;font-weight:400;border:1px solid var(--line);border-radius:4px;padding:.35rem .8rem;cursor:pointer;background:#fff}
+.tipo input{accent-color:var(--rose);margin-right:.4rem}
+.tipo label:has(input:checked){border-color:var(--rose);background:#f8eced}
+.acomp{border:1px solid var(--line);border-radius:4px;padding:1rem;margin-bottom:.8rem;background:#fbf9fa}
+.acomp-topo{display:flex;gap:.6rem;align-items:center}
+.acomp-topo input{flex:1}
+.rem{background:none;border:0;color:#8a3b47;font:600 .9rem var(--sans);cursor:pointer;padding:.4rem}
+.btn.sec{background:transparent;color:var(--rose);border:1px solid var(--rose);margin-top:0}
+.btn.sec:hover{background:#f8eced}
+.hidden{display:none}
+.quando a{color:var(--rose);font-weight:600}
+
 /* Presentes */
 .grade{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1.2rem}
 .presente{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:1.4rem;display:flex;flex-direction:column;gap:.4rem}
@@ -83,7 +97,7 @@ footer{text-align:center;padding:2rem 1rem;color:#6b7a75;font-size:.9rem;border-
     <a class="mono" href="#historia">V &amp; S</a>
     <ul>
       <li><a href="#historia" data-sec="historia">Nossa História</a></li>
-      <li><a href="#presenca" data-sec="presenca">Confirmação de Presença</a></li>
+      <li><a href="#presenca" data-sec="presenca">Presença</a></li>
       <li><a href="#presentes" data-sec="presentes">Lista de Presentes</a></li>
     </ul>
   </nav>
@@ -94,7 +108,10 @@ footer{text-align:center;padding:2rem 1rem;color:#6b7a75;font-size:.9rem;border-
   <section id="historia">
     <div class="hero">
       <h1>Vinicius <em>e</em> Samira</h1>
-      <p class="quando"><!-- EDITE: data e local -->00 de mês de 0000 · Nome do local, Cidade</p>
+      <p class="quando"><strong>Domingo, 8 de agosto de 2027, às 16h</strong><br>
+        Espaço Reserva da Ilha<br>
+        Av. Ernesto João Marcelino, 1261 – Fazenda da Ilha, Embu-Guaçu – SP<br>
+        <a href="https://www.google.com/maps/search/?api=1&query=Espa%C3%A7o+Reserva+da+Ilha+Av.+Ernesto+Jo%C3%A3o+Marcelino+1261+Embu-Gua%C3%A7u" target="_blank" rel="noopener">Ver no mapa</a></p>
       <a class="btn" href="#presenca">Confirmar presença</a>
     </div>
 
@@ -104,20 +121,24 @@ footer{text-align:center;padding:2rem 1rem;color:#6b7a75;font-size:.9rem;border-
     <ul class="linha">
       <li><span class="ano">Ano</span><h3>Como nos conhecemos</h3><p>Conte aqui onde e como o Vinicius e a Samira se encontraram pela primeira vez.</p></li>
       <li><span class="ano">Ano</span><h3>O primeiro encontro</h3><p>Escreva sobre o primeiro programa juntos e o que ficou na memória.</p></li>
-      <li><span class="ano">Ano</span><h3>Morando juntos</h3><p>Um marco da vida a dois: a casa nova, uma viagem, um projeto.</p></li>
       <li><span class="ano">Ano</span><h3>O pedido</h3><p>Como foi o pedido de casamento e o sim mais esperado.</p></li>
+      <li><span class="ano">Ano</span><h3>Morando juntos</h3><p>Um marco da vida a dois: a casa nova, uma viagem, um projeto.</p></li>
     </ul>
   </section>
 
-  <!-- CONFIRMAÇÃO DE PRESENÇA -->
+  <!-- PRESENÇA -->
   <section id="presenca">
-    <h2>Confirmação de Presença</h2>
+    <h2>Confirmar Presença</h2>
     <p class="sub">Conte pra gente se você vem comemorar com a gente. Deixe também um recado para os noivos.</p>
 
     <form id="form-rsvp" novalidate>
       <div class="campo">
         <label for="nome">Seu nome completo</label>
         <input type="text" id="nome" name="nome" autocomplete="name" required>
+        <div class="tipo" role="radiogroup" aria-label="Você é adulto ou criança?">
+          <label><input type="radio" name="tipo" value="Adulto" checked>Adulto</label>
+          <label><input type="radio" name="tipo" value="Criança">Criança</label>
+        </div>
       </div>
       <fieldset>
         <legend>Você vai ao casamento?</legend>
@@ -126,6 +147,12 @@ footer{text-align:center;padding:2rem 1rem;color:#6b7a75;font-size:.9rem;border-
           <label><input type="radio" name="presenca" value="Não vou">Não poderei ir</label>
         </div>
       </fieldset>
+      <div id="bloco-acomp" class="campo hidden">
+        <label>Acompanhantes</label>
+        <p class="dica">Adicione cada pessoa que vai com você, incluindo crianças.</p>
+        <div id="lista-acomp"></div>
+        <button type="button" class="btn sec" id="add-acomp">+ Adicionar acompanhante</button>
+      </div>
       <div class="campo">
         <label for="mensagem">Mensagem para os noivos</label>
         <textarea id="mensagem" name="mensagem"></textarea>
@@ -155,7 +182,7 @@ footer{text-align:center;padding:2rem 1rem;color:#6b7a75;font-size:.9rem;border-
   </section>
 </main>
 
-<footer>Vinicius Köhler &amp; Samira Lino dos Santos</footer>
+<footer>Vinicius Köhler &amp; Samira Lino dos Santos · 8 de agosto de 2027</footer>
 
 <script>
 // ===== EDITE AQUI: cole a URL do Web App do Apps Script =====
@@ -172,6 +199,34 @@ function mostrar(){
 window.addEventListener("hashchange", mostrar);
 mostrar();
 
+// Acompanhantes
+const bloco = document.getElementById("bloco-acomp");
+const lista = document.getElementById("lista-acomp");
+let n = 0;
+
+function addAcomp(){
+  n++;
+  const div = document.createElement("div");
+  div.className = "acomp";
+  div.innerHTML = `
+    <div class="acomp-topo">
+      <input type="text" placeholder="Nome do acompanhante" aria-label="Nome do acompanhante" maxlength="200">
+      <button type="button" class="rem">Remover</button>
+    </div>
+    <div class="tipo" role="radiogroup" aria-label="Adulto ou criança">
+      <label><input type="radio" name="tipo-a${n}" value="Adulto" checked>Adulto</label>
+      <label><input type="radio" name="tipo-a${n}" value="Criança">Criança</label>
+    </div>`;
+  div.querySelector(".rem").addEventListener("click", () => div.remove());
+  lista.appendChild(div);
+  div.querySelector("input[type=text]").focus();
+}
+document.getElementById("add-acomp").addEventListener("click", addAcomp);
+
+// Mostra os acompanhantes só para quem vai
+document.querySelectorAll('input[name="presenca"]').forEach(r =>
+  r.addEventListener("change", () => bloco.classList.toggle("hidden", r.value !== "Vou" || !r.checked)));
+
 // Envio da confirmação
 const form = document.getElementById("form-rsvp");
 const aviso = document.getElementById("aviso");
@@ -183,22 +238,33 @@ form.addEventListener("submit", async e => {
   e.preventDefault();
   const d = new FormData(form);
   const nome = (d.get("nome") || "").trim();
+  const presenca = d.get("presenca");
   if (!nome) return msg("erro", "Digite seu nome para confirmar.");
-  if (!d.get("presenca")) return msg("erro", "Escolha se você vai ou não ao casamento.");
+  if (!presenca) return msg("erro", "Escolha se você vai ou não ao casamento.");
   if (d.get("site")) return; // robô
   if (URL_SCRIPT.startsWith("COLE_AQUI")) return msg("erro", "O site ainda não foi conectado à planilha.");
 
-  botao.disabled = true; msg("", ""); aviso.className = "aviso";
+  let acompanhantes = [];
+  if (presenca === "Vou") {
+    for (const el of lista.querySelectorAll(".acomp")) {
+      const nomeA = el.querySelector("input[type=text]").value.trim();
+      if (!nomeA) return msg("erro", "Preencha o nome de cada acompanhante ou remova o campo vazio.");
+      acompanhantes.push({ nome: nomeA, tipo: el.querySelector("input[type=radio]:checked").value });
+    }
+  }
+
+  botao.disabled = true; aviso.className = "aviso";
   try {
     // text/plain evita o bloqueio de CORS do Apps Script
     await fetch(URL_SCRIPT, {
       method: "POST",
       mode: "no-cors",
       headers: { "Content-Type": "text/plain;charset=utf-8" },
-      body: JSON.stringify({ nome, presenca: d.get("presenca"), mensagem: (d.get("mensagem") || "").trim() })
+      body: JSON.stringify({ nome, tipo: d.get("tipo"), presenca, mensagem: (d.get("mensagem") || "").trim(), acompanhantes })
     });
     form.reset();
-    msg("ok", d.get("presenca") === "Vou"
+    lista.innerHTML = ""; n = 0; bloco.classList.add("hidden");
+    msg("ok", presenca === "Vou"
       ? "Presença confirmada! Mal podemos esperar para ver você."
       : "Recebemos sua resposta. Sentiremos sua falta!");
   } catch (err) {
